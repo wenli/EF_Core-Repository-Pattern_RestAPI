@@ -1,7 +1,7 @@
 ﻿using BrandApplication.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BrandApplication.DataAccess
+namespace BrandApplication.DataAccess.Contexts
 {
     public class BrandDbContext : DbContext
     {

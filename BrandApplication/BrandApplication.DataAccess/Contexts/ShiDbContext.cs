@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BrandApplication.DataAccess.Contexts;
 
-public partial class shi : DbContext
+public partial class ShiDbContext : DbContext
 {
-    public shi()
+    public ShiDbContext()
     {
     }
 
-    public shi(DbContextOptions<shi> options)
+    public ShiDbContext(DbContextOptions<ShiDbContext> options)
         : base(options)
     {
     }

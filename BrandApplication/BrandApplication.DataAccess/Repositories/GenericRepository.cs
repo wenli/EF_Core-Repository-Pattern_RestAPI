@@ -1,14 +1,21 @@
 ﻿using BrandApplication.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BrandApplication.DataAccess.Contexts;
 
 namespace BrandApplication.DataAccess.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly BrandDbContext _databaseContext;
+        private readonly DbContext _databaseContext;
         private readonly DbSet<T> _dbSet;
 
         public GenericRepository(BrandDbContext context)
+        {
+            _databaseContext = context;
+            _dbSet = context.Set<T>();
+        }
+
+        public GenericRepository(ShiDbContext context)
         {
             _databaseContext = context;
             _dbSet = context.Set<T>();
