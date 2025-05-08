@@ -1,13 +1,14 @@
 ﻿
+using System.Linq.Expressions;
 namespace BrandApplication.DataAccess.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IRepository<T>
     {
-        Task AddAsync(T entity);
-        Task<T> GetByIdAsync(int id);
-        Task<List<T?>> GetAllAsync(bool tracked = true);
+        Task CreateAsync(T entity);
+        Task<T?> ReadAsync(Expression<Func<T, bool>> predicate);
+        IQueryable<T> ReadsAsync(); // �`�N�o�̦^�� IQueryable�A��ڸ��Ū���ɦA�ϥ� ToListAsync ���D�P�B��k
         Task UpdateAsync(T entity);
-        Task DeleteByIdAsync(int id);
-        Task SaveAsync();
+        Task DeleteAsync(T entity);
+        Task SaveChangesAsync();
     }
 }

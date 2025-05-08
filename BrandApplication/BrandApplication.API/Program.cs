@@ -6,7 +6,7 @@ using BrandApplication.DataAccess.Interfaces;
 using BrandApplication.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using BrandApplication.Business.Services.IServices.IServiceMappings;
-using BrandApplication.Business.Services.ServiceMappings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,33 +19,33 @@ builder.Services.AddSwaggerGen();
 
 
 ///// Data Base Configuration
-builder.Services.AddScoped<BrandDbContext>();
+// builder.Services.AddScoped<BrandDbContext>();
 
-builder.Services.AddDbContext<BrandDbContext>(options =>
-{
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptionsAction: sqlOptions =>
-        {
-            sqlOptions.MigrationsAssembly("BrandApplication.DataAccess");
-        });
-});
+// builder.Services.AddDbContext<BrandDbContext>(options =>
+// {
+//     options.UseSqlServer(
+//         builder.Configuration.GetConnectionString("DefaultConnection"),
+//         sqlServerOptionsAction: sqlOptions =>
+//         {
+//             sqlOptions.MigrationsAssembly("BrandApplication.DataAccess");
+//         });
+// });
 
 //// AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 //// Generic Repository & Unit of Work
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+// builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+// builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //// Generic Services
-builder.Services.AddScoped(typeof(IReadServiceAsync<,>), typeof(ReadServiceAsync<,>));
-builder.Services.AddScoped(typeof(IGenericServiceAsync<,>), typeof(GenericServiceAsync<,>));
+// builder.Services.AddScoped(typeof(IReadServiceAsync<,>), typeof(ReadServiceAsync<,>));
+// builder.Services.AddScoped(typeof(IGenericServiceAsync<,>), typeof(GenericServiceAsync<,>));
 
 //////////////////////////////////// Services ////////////////////////////////////
 
 // Asset Mappings
-builder.Services.AddScoped(typeof(IBrandService), typeof(BrandService));
+// builder.Services.AddScoped(typeof(IBrandService), typeof(BrandService));
 
 
 var app = builder.Build();

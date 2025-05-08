@@ -7,5 +7,11 @@
 
         public int BrandId { get; set; }
         public BrandDto Brand { get; set; }
+
+        public ModelDto()
+        {
+            ModelName = string.Empty;
+            Brand = new BrandDto();
+        }
     }
 }
