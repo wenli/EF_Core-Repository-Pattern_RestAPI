@@ -6,8 +6,8 @@ namespace BrandApplication.DataAccess.Models
     {
         [Key]
         public int BrandId { get; set; }
-        public string BrandName { get; set; }
+        public string BrandName { get; set; } = string.Empty; // Initialize with default value
 
-        public ICollection<ProductModel> Models { get; set; }
+        public ICollection<ProductModel> Models { get; set; } = new List<ProductModel>(); // Initialize with default value
     }
 }

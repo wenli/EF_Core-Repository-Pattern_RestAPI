@@ -40,12 +40,13 @@ namespace BrandApplication.DataAccess.Repositories
             return Context.Set<TEntity>().AsQueryable();
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public Task UpdateAsync(TEntity entity)
         {
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
 
-        public async Task UpdateAsync(TEntity entity, Expression<Func<TEntity, object>>[] updateProperties)
+        public Task UpdateAsync(TEntity entity, Expression<Func<TEntity, object>>[] updateProperties)
         {
             Context.Entry<TEntity>(entity).State = EntityState.Unchanged;
 
@@ -57,11 +58,13 @@ namespace BrandApplication.DataAccess.Repositories
                     Context.Entry<TEntity>(entity).Property(propertyName).IsModified = true;
                 }
             }
+            return Task.CompletedTask;
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public Task DeleteAsync(TEntity entity)
         {
             Context.Entry<TEntity>(entity).State = EntityState.Deleted;
+            return Task.CompletedTask;
         }
 
         public async Task SaveChangesAsync()

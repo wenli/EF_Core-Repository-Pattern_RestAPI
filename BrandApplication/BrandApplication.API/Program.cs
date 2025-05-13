@@ -2,6 +2,7 @@ using BrandApplication.Business.Mappings;
 using BrandApplication.Business.Services.IServices;
 using BrandApplication.Business.Services;
 using BrandApplication.DataAccess;
+using BrandApplication.DataAccess.Contexts; // Added for ShiDbContext
 using BrandApplication.DataAccess.Interfaces;
 using BrandApplication.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,11 @@ builder.Services.AddSwaggerGen();
 //         });
 // });
 
+// Shi DbContext Configuration
+builder.Services.AddDbContext<ShiDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("ShiConnection")));
+
+
 //// AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -55,6 +61,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();

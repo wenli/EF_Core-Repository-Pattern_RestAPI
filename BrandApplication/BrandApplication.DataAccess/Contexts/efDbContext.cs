@@ -20,20 +20,28 @@ namespace BrandApplication.DataAccess.Contexts
         ChangeTracker ChangeTracker { get; }
     }
 
-    public class YourDbContext : DbContext, IDbContext
+    public class efDbContext : DbContext, IDbContext
     {
-        public YourDbContext(DbContextOptions<YourDbContext> options) : base(options)
+        public efDbContext(DbContextOptions<efDbContext> options) : base(options)
         {
         }
 
-        // 实现 IDbContext 接口的属性
-        public bool ChangeTrackerAutoDetectChangesEnabled
+        public override DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
-            get => ChangeTracker.AutoDetectChangesEnabled;
-            set => ChangeTracker.AutoDetectChangesEnabled = value;
+            return base.Set<TEntity>();
         }
 
-        public IModel Model => base.Model;
+        public override EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return base.Entry(entity);
+        }
+
+        // Implement missing members from IDbContext
+        public override DatabaseFacade Database => base.Database;
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => base.SaveChangesAsync(cancellationToken);
+        public bool ChangeTrackerAutoDetectChangesEnabled { get => base.ChangeTracker.AutoDetectChangesEnabled; set => base.ChangeTracker.AutoDetectChangesEnabled = value; }
+        public override IModel Model => base.Model;
+        public override ChangeTracker ChangeTracker => base.ChangeTracker;
     }
 
 }

@@ -83,14 +83,14 @@ namespace BrandApplication.DataAccess.Repositories
         {
             var typeName = typeof(T).FullName;
 
-            if (!_repositories.ContainsKey(typeName))
+            if (!_repositories.ContainsKey(typeName!)) // Add ! to assure typeName is not null
             {
                 var repositoryType = typeof(EFGenericRepository<>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
-                _repositories.Add(typeName, repositoryInstance);
+                _repositories.Add(typeName!, repositoryInstance!); // Add ! to assure typeName and repositoryInstance are not null
             }
 
-            return (IRepository<T>)_repositories[typeName];
+            return (IRepository<T>)_repositories[typeName!]; // Add ! to assure typeName is not null
         }
     }
 }
