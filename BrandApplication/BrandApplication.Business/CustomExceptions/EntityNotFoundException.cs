@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Plutus.ProductPricing.Business.CustomExceptions
+namespace BrandApplication.Business.CustomExceptions
 {
     [Serializable]
-    internal class EntityNotFoundException : Exception
+    public class EntityNotFoundException : Exception
     {
         public EntityNotFoundException()
         {
