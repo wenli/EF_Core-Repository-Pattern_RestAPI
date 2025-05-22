@@ -43,6 +43,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 //// Generic Repository & Unit of Work
 // builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 // builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>(provider => new EFUnitOfWork(provider.GetService<ShiDbContext>()!));
 
 //// Generic Services
 // builder.Services.AddScoped(typeof(IReadServiceAsync<,>), typeof(ReadServiceAsync<,>));
