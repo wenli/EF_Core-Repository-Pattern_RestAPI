@@ -1,19 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BrandApplication.DataAccess.Entities;
+using BrandApplication.Business.DTOs; // Correct DTO namespace
 
-namespace BrandApplication.DataAccess.Services
+namespace BrandApplication.Business.Services.IServices // Corrected namespace
 {
     public interface IBtStrategyService
     {
-        Task<IEnumerable<BtStrategy>> GetAllStrategiesAsync();
-        Task<BtStrategy> GetStrategyByIdAsync(string id); // Assuming you have an ID property
-        Task<BtStrategy> CreateStrategyAsync(BtStrategy strategy);
-        Task UpdateStrategyAsync(BtStrategy strategy);
-        Task DeleteStrategyAsync(string id);
-
-        // Add any other methods specific to your business logic, e.g.:
-        // Task<IEnumerable<BtStrategy>> GetStrategiesBySymbolAsync(string symbol);
-        // Task RunBacktestAsync(string strategyId);
+        Task<IEnumerable<BtStrategyDto>> GetAllStrategiesAsync();
+        Task<BtStrategyDto> GetStrategyByIdAsync(int id); // Changed id type to int, return type to Dto
+        Task<BtStrategyDto> CreateStrategyAsync(BtStrategyDto strategyDto); // Changed parameter and return type to Dto
+        Task UpdateStrategyAsync(int id, BtStrategyDto strategyDto); // Added id parameter, changed parameter to Dto
+        Task DeleteStrategyAsync(int id); // Changed id type to int
     }
 }

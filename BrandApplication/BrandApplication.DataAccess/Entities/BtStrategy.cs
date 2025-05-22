@@ -5,6 +5,8 @@ namespace BrandApplication.DataAccess.Entities;
 
 public partial class BtStrategy
 {
+    public int Id { get; set; }
+
     public string? Strategy { get; set; }
 
     public string? Contract { get; set; }

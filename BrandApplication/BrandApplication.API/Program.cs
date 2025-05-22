@@ -7,6 +7,7 @@ using BrandApplication.DataAccess.Interfaces;
 using BrandApplication.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using BrandApplication.Business.Services.IServices.IServiceMappings;
+using BrandApplication.Business.Services.Services; // For BtStrategyEntityService
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,9 +41,21 @@ builder.Services.AddDbContext<ShiDbContext>(options =>
 //// AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+// Unit of Work specific to ShiDbContext
+builder.Services.AddScoped<IUnitOfWork>(sp => new EFUnitOfWork(sp.GetRequiredService<ShiDbContext>()));
+
+// Generic Repository (if to be used directly, ensure context is handled or it's used via UoW)
+// If EFGenericRepository is resolved directly, it needs a DbContext.
+// For BtStrategyService, it gets the repository from IUnitOfWork, which is already configured with ShiDbContext.
+// So, this line makes IRepository<T> available if other services need it directly.
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EFGenericRepository<>));
+
+// Application Services
+builder.Services.AddScoped<IBtStrategyService, BtStrategyEntityService>();
+
 //// Generic Repository & Unit of Work
-// builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-// builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+// builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Keep original commented if not used, or remove if replaced
+// builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); // Keep original commented if not used, or remove if replaced
 
 //// Generic Services
 // builder.Services.AddScoped(typeof(IReadServiceAsync<,>), typeof(ReadServiceAsync<,>));

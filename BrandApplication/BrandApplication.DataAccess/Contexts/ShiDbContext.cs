@@ -52,10 +52,10 @@ public partial class ShiDbContext : DbContext
     {
         modelBuilder.Entity<BtStrategy>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("bt_strategy");
+            entity.ToTable("bt_strategy");
+            entity.HasKey(e => e.Id);
 
+            entity.Property(e => e.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entity.Property(e => e.Balance).HasColumnName("balance");
             entity.Property(e => e.Contract).HasColumnName("contract");
             entity.Property(e => e.DfTimeframe).HasColumnName("df_timeframe");
